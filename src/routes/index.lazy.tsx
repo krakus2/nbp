@@ -1,7 +1,8 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 
-// import { css } from 'styled-system/css'
+import { stack } from 'styled-system/patterns'
 import { Table } from '~/parkUI/table'
+import { Button } from '~/parkUI/button'
 import { useGetExchangeRatesTableA } from '~/services/nbp'
 
 export const Route = createLazyFileRoute('/')({
@@ -11,27 +12,41 @@ export const Route = createLazyFileRoute('/')({
 function Index() {
   const { data } = useGetExchangeRatesTableA()
 
+  if (!data) return null
+
   return (
-    // className={css({ fontSize: '2xl', fontWeight: 'bold' })}
     <div>
-      <Table.Root>
-        <Table.Head>
-          <Table.Row>
-            <Table.Header>Currency</Table.Header>
-            <Table.Header>Code</Table.Header>
-            <Table.Header>Value</Table.Header>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          {data?.rates.map(({ currency, code, mid: midRate }) => (
-            <Table.Row key={code}>
-              <Table.Cell fontWeight='medium'>{currency}</Table.Cell>
-              <Table.Cell>{code}</Table.Cell>
-              <Table.Cell>{midRate}</Table.Cell>
+      <div className={stack({ maxWidth: '800px', margin: '0 auto' })}>
+        <Table.Root>
+          <Table.Head>
+            <Table.Row>
+              <Table.Header>Currency</Table.Header>
+              <Table.Header>Code</Table.Header>
+              <Table.Header>Value</Table.Header>
+              <Table.Header></Table.Header>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+          </Table.Head>
+          <Table.Body>
+            {data.rates.map(({ currency, code, mid: midRate }) => (
+              <Table.Row key={code}>
+                <Table.Cell>{currency}</Table.Cell>
+                <Table.Cell>{code}</Table.Cell>
+                <Table.Cell>{midRate}</Table.Cell>
+                <Table.Cell>
+                  <Button
+                    size='xs'
+                    onClick={() => {
+                      console.log('details')
+                    }}
+                  >
+                    Details
+                  </Button>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+      </div>
     </div>
   )
 }

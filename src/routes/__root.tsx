@@ -1,6 +1,8 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import React from 'react'
 
+import { css } from 'styled-system/css'
+
 const TanStackRouterDevtools =
   process.env.NODE_ENV === 'production'
     ? () => null // Render nothing in production
@@ -15,9 +17,9 @@ const TanStackRouterDevtools =
 
 export const Route = createRootRoute({
   component: () => (
-    <>
+    <div className={css({ padding: '20px' })}>
       <Outlet />
       <TanStackRouterDevtools />
-    </>
+    </div>
   ),
 })
