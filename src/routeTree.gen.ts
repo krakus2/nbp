@@ -12,31 +12,25 @@ import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
+import { Route as rootRoute } from './routes/~__root'
 
 // Create Virtual Routes
 
-const CalculatorLazyImport = createFileRoute('/calculator')()
 const IndexLazyImport = createFileRoute('/')()
 const CurrenciesCodeLazyImport = createFileRoute('/currencies/$code')()
 
 // Create/Update Routes
 
-const CalculatorLazyRoute = CalculatorLazyImport.update({
-  path: '/calculator',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/calculator.lazy').then((d) => d.Route))
-
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/~index.lazy').then((d) => d.Route))
 
 const CurrenciesCodeLazyRoute = CurrenciesCodeLazyImport.update({
   path: '/currencies/$code',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/currencies.$code.lazy').then((d) => d.Route),
+  import('./routes/~currencies/~$code.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
@@ -48,13 +42,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/calculator': {
-      id: '/calculator'
-      path: '/calculator'
-      fullPath: '/calculator'
-      preLoaderRoute: typeof CalculatorLazyImport
       parentRoute: typeof rootRoute
     }
     '/currencies/$code': {
@@ -71,7 +58,6 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
-  CalculatorLazyRoute,
   CurrenciesCodeLazyRoute,
 })
 
@@ -81,21 +67,17 @@ export const routeTree = rootRoute.addChildren({
 {
   "routes": {
     "__root__": {
-      "filePath": "__root.tsx",
+      "filePath": "~__root.tsx",
       "children": [
         "/",
-        "/calculator",
         "/currencies/$code"
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
-    },
-    "/calculator": {
-      "filePath": "calculator.lazy.tsx"
+      "filePath": "~index.lazy.tsx"
     },
     "/currencies/$code": {
-      "filePath": "currencies.$code.lazy.tsx"
+      "filePath": "~currencies/~$code.lazy.tsx"
     }
   }
 }
