@@ -12,13 +12,12 @@ interface CurrencyDetailsDTO {
 
 interface CurrencyDetailsRequestParams {
   code: CurrencyCode
-  // TODO: Think about the name
-  range: number
+  period: number
 }
 
-const getCurrencyDetails = ({ code, range }: CurrencyDetailsRequestParams) =>
+const getCurrencyDetails = ({ code, period }: CurrencyDetailsRequestParams) =>
   nbpApi<unknown, CurrencyDetailsDTO>(
-    `exchangerates/rates/a/${code}/last/${range}/?format=json`
+    `exchangerates/rates/a/${code}/last/${period}/?format=json`
   )
 
 export const useCurrencyDetails = (params: CurrencyDetailsRequestParams) =>

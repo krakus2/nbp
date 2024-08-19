@@ -8,10 +8,10 @@ import { Heading } from '~/components/ui/heading'
 import { CurrencyCode, useCurrencyDetails } from '~/services/nbp'
 
 import { Chart } from './components'
-import { DEFAULT_RANGE_VALUE, RANGES } from './consts'
+import { DEFAULT_PERIOD_VALUE, PERIODS } from './consts'
 
-export function ChartWithRangeSelector() {
-  const [range, setRange] = useState(DEFAULT_RANGE_VALUE)
+export function ChartWithPeriodSelector() {
+  const [range, setRange] = useState(DEFAULT_PERIOD_VALUE)
   const { code } = useParams({ strict: false })
   const { data, isPending } = useCurrencyDetails({
     code: code as CurrencyCode,
@@ -30,7 +30,7 @@ export function ChartWithRangeSelector() {
       <Heading size='xl'>{data?.code} to PLN chart</Heading>
       <Chart data={chartData} />
       <Flex gap='8px' alignSelf='center'>
-        {RANGES.map(({ value, label }) => {
+        {PERIODS.map(({ value, label }) => {
           const isRangeSelected = value === range
 
           return (
