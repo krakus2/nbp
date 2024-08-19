@@ -12,7 +12,7 @@ type ChartProps = {
   data: Array<{ date: string; value: number }>
 }
 
-export const Chart = ({ data }: ChartProps) => (
+export const CurrencyChart = ({ data }: ChartProps) => (
   <ResponsiveContainer width='100%' height={400}>
     <LineChart data={data}>
       <CartesianGrid strokeDasharray='3 3' />

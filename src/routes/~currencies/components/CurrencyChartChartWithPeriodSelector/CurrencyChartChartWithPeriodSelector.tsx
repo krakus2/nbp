@@ -8,10 +8,10 @@ import { useCurrencyDetails } from '~/services/nbp'
 
 import { useCurrencyCode } from '../../useCurrencyCode'
 
-import { Chart } from './components'
+import { CurrencyChart } from './components'
 import { DEFAULT_PERIOD_VALUE, PERIODS } from './consts'
 
-export const ChartWithPeriodSelector = () => {
+export const CurrencyChartChartWithPeriodSelector = () => {
   const [period, setPeriod] = useState(DEFAULT_PERIOD_VALUE)
   const { code } = useCurrencyCode()
   const { data, isPending } = useCurrencyDetails({
@@ -29,7 +29,7 @@ export const ChartWithPeriodSelector = () => {
   return (
     <Stack>
       <Heading size='xl'>{data?.code} to PLN chart</Heading>
-      <Chart data={chartData} />
+      <CurrencyChart data={chartData} />
       <Flex gap='8px' alignSelf='center'>
         {PERIODS.map(({ value, label }) => {
           const isPeriodSelected = value === period

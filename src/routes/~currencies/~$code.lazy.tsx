@@ -2,7 +2,10 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 
 import { Stack } from 'styled-system/jsx'
 
-import { ChartWithPeriodSelector, CurrencyConverter } from './components'
+import {
+  CurrencyChartChartWithPeriodSelector,
+  CurrencyConverter,
+} from './components'
 
 export const Route = createLazyFileRoute('/currencies/$code')({
   component: Currency,
@@ -11,7 +14,7 @@ export const Route = createLazyFileRoute('/currencies/$code')({
 function Currency() {
   return (
     <Stack>
-      <ChartWithPeriodSelector />
+      <CurrencyChartChartWithPeriodSelector />
       <CurrencyConverter />
     </Stack>
   )
