@@ -18,6 +18,7 @@ import { Route as rootRoute } from './routes/__root'
 
 const CalculatorLazyImport = createFileRoute('/calculator')()
 const IndexLazyImport = createFileRoute('/')()
+const CurrenciesCodeLazyImport = createFileRoute('/currencies/$code')()
 
 // Create/Update Routes
 
@@ -30,6 +31,13 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const CurrenciesCodeLazyRoute = CurrenciesCodeLazyImport.update({
+  path: '/currencies/$code',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/currencies.$code.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -49,6 +57,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorLazyImport
       parentRoute: typeof rootRoute
     }
+    '/currencies/$code': {
+      id: '/currencies/$code'
+      path: '/currencies/$code'
+      fullPath: '/currencies/$code'
+      preLoaderRoute: typeof CurrenciesCodeLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -57,6 +72,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   CalculatorLazyRoute,
+  CurrenciesCodeLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -68,7 +84,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/calculator"
+        "/calculator",
+        "/currencies/$code"
       ]
     },
     "/": {
@@ -76,6 +93,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/calculator": {
       "filePath": "calculator.lazy.tsx"
+    },
+    "/currencies/$code": {
+      "filePath": "currencies.$code.lazy.tsx"
     }
   }
 }

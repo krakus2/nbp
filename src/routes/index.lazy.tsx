@@ -1,22 +1,24 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, Link } from '@tanstack/react-router'
+import { ArrowRightIcon } from 'lucide-react'
 
-import { stack } from 'styled-system/patterns'
-import { Table } from '~/parkUI/table'
-import { Button } from '~/parkUI/button'
-import { useGetExchangeRatesTableA } from '~/services/nbp'
+import { Stack } from 'styled-system/jsx'
+
+import { Table } from '~/components/ui/table'
+import { IconButton } from '~/components/ui/icon-button'
+import { useExchangeRatesTableA } from '~/services/nbp'
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
 })
 
 function Index() {
-  const { data } = useGetExchangeRatesTableA()
+  const { data } = useExchangeRatesTableA()
 
   if (!data) return null
 
   return (
     <div>
-      <div className={stack({ maxWidth: '800px', margin: '0 auto' })}>
+      <Stack maxWidth='800px' margin='0 auto'>
         <Table.Root>
           <Table.Head>
             <Table.Row>
@@ -33,20 +35,17 @@ function Index() {
                 <Table.Cell>{code}</Table.Cell>
                 <Table.Cell>{midRate}</Table.Cell>
                 <Table.Cell>
-                  <Button
-                    size='xs'
-                    onClick={() => {
-                      console.log('details')
-                    }}
-                  >
-                    Details
-                  </Button>
+                  <IconButton asChild size='xs' aria-label='currency details'>
+                    <Link to='/currencies/$code' params={{ code }}>
+                      <ArrowRightIcon />
+                    </Link>
+                  </IconButton>
                 </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
         </Table.Root>
-      </div>
+      </Stack>
     </div>
   )
 }
