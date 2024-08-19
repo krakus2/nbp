@@ -12,7 +12,6 @@
     "eslint": "eslint --ext js,ts,tsx"
   },
   "dependencies": {
-    "@ark-ui/react": "^3.7.0",
     "@tanstack/react-query": "^5.51.23",
     "@tanstack/react-router": "^1.48.1",
     "axios": "^1.7.4",
@@ -21,10 +20,10 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.2",
     "recharts": "^2.12.7",
-    "type-fest": "^4.25.0",
-    "vite-tsconfig-paths": "^5.0.1"
+    "type-fest": "^4.25.0"
   },
   "devDependencies": {
+    "@ark-ui/react": "^3.8.0",
     "@eslint/js": "^9.9.0",
     "@pandacss/dev": "^0.45.1",
     "@park-ui/panda-preset": "^0.42.0",
@@ -34,11 +33,11 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^9.9.0",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.9",
+    "eslint-plugin-react": "^7.35.0",
     "globals": "^15.9.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-tsconfig-paths": "^5.0.1"
   }
 }
