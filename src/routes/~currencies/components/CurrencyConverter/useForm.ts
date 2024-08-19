@@ -55,7 +55,8 @@ export function useForm() {
   const isSubmitButtonDisabled = !currentAverageCurrencyExchangeRate
 
   return {
-    onSubmit: () => handleSubmit(onValid),
+    onSubmit: (event?: React.BaseSyntheticEvent) =>
+      handleSubmit(onValid)(event),
     errors,
     code,
     amountInput,
