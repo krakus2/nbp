@@ -5,17 +5,17 @@ import { Flex } from 'styled-system/jsx'
 import { Text } from '~/components/ui/text'
 import { IconButton } from '~/components/ui/icon-button'
 
-interface CurrenciesDisplayAndSwap {
+type CurrenciesDisplayAndSwap = {
   isPLNtoForeign: boolean
   toggleIsPLNtoForeign: () => void
   code: string | undefined
 }
 
-export function CurrenciesDisplayAndSwap({
+export const CurrenciesDisplayAndSwap = ({
   isPLNtoForeign,
   code,
   toggleIsPLNtoForeign,
-}: CurrenciesDisplayAndSwap) {
+}: CurrenciesDisplayAndSwap) => {
   return (
     <Flex align='baseline' gap='8px'>
       <Text>From {isPLNtoForeign ? 'PLN' : code}</Text>

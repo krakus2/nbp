@@ -1,21 +1,22 @@
-import { useParams } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { Flex, Stack } from 'styled-system/jsx'
 
 import { Button } from '~/components/ui/button'
 import { Heading } from '~/components/ui/heading'
-import { CurrencyCode, useCurrencyDetails } from '~/services/nbp'
+import { useCurrencyDetails } from '~/services/nbp'
+
+import { useCurrencyCode } from '../../useCurrencyCode'
 
 import { Chart } from './components'
 import { DEFAULT_PERIOD_VALUE, PERIODS } from './consts'
 
-export function ChartWithPeriodSelector() {
-  const [range, setRange] = useState(DEFAULT_PERIOD_VALUE)
-  const { code } = useParams({ strict: false })
+export const ChartWithPeriodSelector = () => {
+  const [period, setPeriod] = useState(DEFAULT_PERIOD_VALUE)
+  const { code } = useCurrencyCode()
   const { data, isPending } = useCurrencyDetails({
-    code: code as CurrencyCode,
-    range,
+    code,
+    period,
   })
 
   const chartData = data
@@ -31,13 +32,13 @@ export function ChartWithPeriodSelector() {
       <Chart data={chartData} />
       <Flex gap='8px' alignSelf='center'>
         {PERIODS.map(({ value, label }) => {
-          const isRangeSelected = value === range
+          const isPeriodSelected = value === period
 
           return (
             <Button
-              onClick={() => setRange(value)}
-              loading={isRangeSelected && isPending}
-              variant={isRangeSelected ? 'outline' : 'solid'}
+              onClick={() => setPeriod(value)}
+              loading={isPeriodSelected && isPending}
+              variant={isPeriodSelected ? 'outline' : 'solid'}
             >
               {label}
             </Button>

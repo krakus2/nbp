@@ -9,12 +9,12 @@ import { NumberInput } from '~/components/ui/number-input'
 import { useForm } from './useForm'
 import { CurrenciesDisplayAndSwap } from './components'
 
-export function CurrencyConverter() {
+export const CurrencyConverter = () => {
   const {
     onSubmit,
     errors,
     code,
-    amountInput,
+    amountInputRegistered,
     convertedAmount,
     isPLNtoForeign,
     toggleIsPLNtoForeign,
@@ -25,7 +25,7 @@ export function CurrencyConverter() {
     <Stack gap='24px'>
       <Heading size='xl'>Currency converter</Heading>
       <form className={stack({ gap: '24px' })} onSubmit={onSubmit}>
-        <NumberInput {...amountInput}>Amount</NumberInput>
+        <NumberInput {...amountInputRegistered}>Amount</NumberInput>
         {errors.amount && <Text color='red'>{errors.amount.message}</Text>}
         <CurrenciesDisplayAndSwap
           isPLNtoForeign={isPLNtoForeign}

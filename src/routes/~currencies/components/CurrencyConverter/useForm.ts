@@ -1,12 +1,11 @@
-import { useParams } from '@tanstack/react-router'
 import { useState } from 'react'
-
 import { SubmitHandler, useForm as useReactHookForm } from 'react-hook-form'
 
-import { CurrencyCode } from '~/services/nbp'
-import { useCurrentAverageCurrencyExchangeRate } from '~/services/nbp/currentAverageCurrencyExchangeRate'
+import { useCurrentAverageCurrencyExchangeRate } from '~/services/nbp'
 
-interface CurrencyCalculatorFormValues {
+import { useCurrencyCode } from '../../useCurrencyCode'
+
+type CurrencyCalculatorFormValues = {
   amount: number
 }
 
@@ -22,22 +21,22 @@ const amountInputConfig = {
   },
 } as const
 
-export function useForm() {
+export const useForm = () => {
   const [isPLNtoForeign, setIsPLNtoForeign] = useState(true)
   const [convertedAmount, setConvertedAmount] = useState('')
-  const { code } = useParams({ strict: false })
+  const { code } = useCurrencyCode()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useReactHookForm<CurrencyCalculatorFormValues>()
   const { data: currentAverageCurrencyExchangeRate } =
-    useCurrentAverageCurrencyExchangeRate(code as CurrencyCode)
+    useCurrentAverageCurrencyExchangeRate(code)
 
   const {
     min: _min,
     max: _max,
-    ...amountInput
+    ...amountInputRegistered
   } = register('amount', amountInputConfig)
 
   const onValid: SubmitHandler<CurrencyCalculatorFormValues> = ({ amount }) => {
@@ -59,7 +58,7 @@ export function useForm() {
       handleSubmit(onValid)(event),
     errors,
     code,
-    amountInput,
+    amountInputRegistered,
     convertedAmount,
     isPLNtoForeign,
     toggleIsPLNtoForeign,
