@@ -37,7 +37,7 @@ function Chart({ data }: ChartProps) {
       <LineChart data={data}>
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey='date' />
-        <YAxis />
+        <YAxis domain={['dataMin', 'dataMax']} />
         <Tooltip />
         <Line type='monotone' dataKey='value' stroke='#8884d8' />
       </LineChart>
