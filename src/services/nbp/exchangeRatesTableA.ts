@@ -3,21 +3,21 @@ import { useQuery } from '@tanstack/react-query'
 import { nbpApi } from './api'
 import type { CurrencyCode } from './domain'
 
-interface Rate {
+interface RateDTO {
   currency: string
   code: CurrencyCode
   mid: number
 }
 
-interface ExchangeRateTable {
+interface ExchangeRateTableDTO {
   table: string
   no: string
   effectiveDate: string
-  rates: Rate[]
+  rates: RateDTO[]
 }
 
 const getExchangeRatesTableA = () =>
-  nbpApi<unknown, Array<ExchangeRateTable>>('exchangerates/tables/a')
+  nbpApi<unknown, Array<ExchangeRateTableDTO>>('exchangerates/tables/a')
 
 export const useExchangeRatesTableA = () =>
   useQuery({
