@@ -10,7 +10,7 @@ export const Route = createLazyFileRoute('/(index)/')({
   component: Index,
 })
 
-function Index() {
+export function Index() {
   const { data } = useExchangeRatesTableA()
 
   if (!data) return null

@@ -1,5 +1,5 @@
 import {
-  CurrencyDetailsDTO,
+  type CurrencyDetailsDTO,
   makeCurrentAverageCurrencyExchangeRateGetMock,
 } from '~/services/nbp'
 import { runEmptyMockServer } from '~/utils/tests/runEmptyMockServer'

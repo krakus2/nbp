@@ -1,6 +1,9 @@
 import type { Mock } from 'vitest'
 
-import { CurrencyDetailsDTO, makeCurrencyDetailsGetMock } from '~/services/nbp'
+import {
+  type CurrencyDetailsDTO,
+  makeCurrencyDetailsGetMock,
+} from '~/services/nbp'
 import { runEmptyMockServer } from '~/utils/tests/runEmptyMockServer'
 import { renderTestComponentWithRouter } from '~/utils/tests/renderTestComponent'
 

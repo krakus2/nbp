@@ -11,7 +11,7 @@ type CurrenciesTable = {
 export const CurrenciesTable = ({ data }: CurrenciesTable) => (
   <Table.Root>
     <Table.Head>
-      <Table.Row>
+      <Table.Row data-testid='headers'>
         <Table.Header>Currency</Table.Header>
         <Table.Header>Code</Table.Header>
         <Table.Header>Value</Table.Header>
@@ -20,7 +20,7 @@ export const CurrenciesTable = ({ data }: CurrenciesTable) => (
     </Table.Head>
     <Table.Body>
       {data.map(({ currency, code, rate }) => (
-        <Table.Row key={code}>
+        <Table.Row key={code} data-testid={code}>
           <Table.Cell>{currency}</Table.Cell>
           <Table.Cell>{code}</Table.Cell>
           <Table.Cell>{rate}</Table.Cell>

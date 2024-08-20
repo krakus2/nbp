@@ -4,7 +4,7 @@ import { http, HttpResponse } from 'msw'
 import { nbpApi } from './api'
 import { joinApiPaths } from './utils'
 
-type ExchangeRateTableDTO = Array<{
+export type ExchangeRateTableDTO = Array<{
   table: string
   no: string
   effectiveDate: string
