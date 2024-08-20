@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { compile } from 'path-to-regexp'
 import { http, HttpResponse } from 'msw'
+import type { Mock } from 'vitest'
+import _last from 'lodash.last'
 
 import { nbpApi } from './api'
 import type { CurrencyDetailsDTO } from './dtos'
@@ -30,5 +32,15 @@ export const useCurrencyDetails = (params: CurrencyDetailsRequestParams) =>
     queryFn: () => getCurrencyDetailsRequest(params),
   })
 
-export const makeCurrencyDetailsGetMock = (data: CurrencyDetailsDTO) =>
-  http.get(joinApiPaths(url), () => HttpResponse.json(data))
+export const makeCurrencyDetailsGetMock = (
+  data: CurrencyDetailsDTO,
+  spy?: Mock
+) =>
+  http.get(joinApiPaths(url), async ({ request }) => {
+    if (spy) {
+      const period = _last(request.url.split('/'))
+      spy(period)
+    }
+
+    return HttpResponse.json(data)
+  })
