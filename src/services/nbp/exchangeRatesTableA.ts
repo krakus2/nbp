@@ -14,10 +14,10 @@ type ExchangeRateTableDTO = Array<{
   }>
 }>
 
-const exchangeRatesTableAUrl = 'exchangerates/tables/a' as const
+const url = 'exchangerates/tables/a' as const
 
 const getExchangeRatesTableARequest = () =>
-  nbpApi<unknown, ExchangeRateTableDTO>(exchangeRatesTableAUrl)
+  nbpApi<unknown, ExchangeRateTableDTO>(url)
 
 export const useExchangeRatesTableA = () =>
   useQuery({
@@ -27,4 +27,4 @@ export const useExchangeRatesTableA = () =>
   })
 
 export const makeExchangeRatesTableAGetMock = (data: ExchangeRateTableDTO) =>
-  http.get(exchangeRatesTableAUrl, () => HttpResponse.json(data))
+  http.get(url, () => HttpResponse.json(data))

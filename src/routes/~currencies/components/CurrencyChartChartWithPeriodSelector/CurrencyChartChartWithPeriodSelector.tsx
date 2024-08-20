@@ -36,6 +36,7 @@ export const CurrencyChartChartWithPeriodSelector = () => {
 
           return (
             <Button
+              key={value}
               onClick={() => setPeriod(value)}
               loading={isPeriodSelected && isPending}
               variant={isPeriodSelected ? 'outline' : 'solid'}

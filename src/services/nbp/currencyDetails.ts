@@ -10,15 +10,14 @@ type CurrencyDetailsRequestParams = {
   period: number
 }
 
-export const currencyDetailsUrl =
-  'exchangerates/rates/a/:code/last/:period' as const
+const url = 'exchangerates/rates/a/:code/last/:period' as const
 
 const getCurrencyDetailsRequest = ({
   code,
   period,
 }: CurrencyDetailsRequestParams) =>
   nbpApi<unknown, CurrencyDetailsDTO>(
-    compile<{ code: string; period: string }>(currencyDetailsUrl)({
+    compile<{ code: string; period: string }>(url)({
       code,
       period: String(period),
     })
@@ -31,4 +30,4 @@ export const useCurrencyDetails = (params: CurrencyDetailsRequestParams) =>
   })
 
 export const makeCurrencyDetailsGetMock = (data: CurrencyDetailsDTO) =>
-  http.get(currencyDetailsUrl, () => HttpResponse.json(data))
+  http.get(url, () => HttpResponse.json(data))
