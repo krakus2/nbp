@@ -8,6 +8,8 @@ The app is a web-based currency tool that uses the NBP public API to display cur
 - npm run prepare
 - npm run dev
 
+## [nbp-orcin.vercel.app] Click to open deployed app
+
 ## Used technologies
 
 - Vite - industry standard build tool at the moment
