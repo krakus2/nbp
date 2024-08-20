@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
+import { compile } from 'path-to-regexp'
+import { http, HttpResponse } from 'msw'
 
 import { nbpApi } from './api'
 import type { CurrencyDetailsDTO } from './dtos'
@@ -8,13 +10,25 @@ type CurrencyDetailsRequestParams = {
   period: number
 }
 
-const getCurrencyDetails = ({ code, period }: CurrencyDetailsRequestParams) =>
+export const currencyDetailsUrl =
+  'exchangerates/rates/a/:code/last/:period' as const
+
+const getCurrencyDetailsRequest = ({
+  code,
+  period,
+}: CurrencyDetailsRequestParams) =>
   nbpApi<unknown, CurrencyDetailsDTO>(
-    `exchangerates/rates/a/${code}/last/${period}`
+    compile<{ code: string; period: string }>(currencyDetailsUrl)({
+      code,
+      period: String(period),
+    })
   )
 
 export const useCurrencyDetails = (params: CurrencyDetailsRequestParams) =>
   useQuery({
     queryKey: ['currencyDetails', params],
-    queryFn: () => getCurrencyDetails(params),
+    queryFn: () => getCurrencyDetailsRequest(params),
   })
+
+export const makeCurrencyDetailsGetMock = (data: CurrencyDetailsDTO) =>
+  http.get(currencyDetailsUrl, () => HttpResponse.json(data))
