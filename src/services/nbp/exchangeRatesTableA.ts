@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 
 import { nbpApi } from './api'
+import { joinApiPaths } from './utils'
 
 type ExchangeRateTableDTO = Array<{
   table: string
@@ -27,4 +28,4 @@ export const useExchangeRatesTableA = () =>
   })
 
 export const makeExchangeRatesTableAGetMock = (data: ExchangeRateTableDTO) =>
-  http.get(url, () => HttpResponse.json(data))
+  http.get(joinApiPaths(url), () => HttpResponse.json(data))

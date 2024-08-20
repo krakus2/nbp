@@ -33,8 +33,6 @@ export const useForm = () => {
   const { data: currentAverageCurrencyExchangeRate } =
     useCurrentAverageCurrencyExchangeRate(code)
 
-  console.log({ currentAverageCurrencyExchangeRate, isPLNtoForeign, code })
-
   const {
     // INFO: There were type inconsistencies, so instead of using controller I just omitted them as there are not needed
     min: _min,
@@ -43,7 +41,6 @@ export const useForm = () => {
   } = register('amount', amountInputConfig)
 
   const onValid: SubmitHandler<CurrencyCalculatorFormValues> = ({ amount }) => {
-    console.log('SUBMIT', { currentAverageCurrencyExchangeRate, amount })
     if (!currentAverageCurrencyExchangeRate)
       throw new Error('currency exchange rate should be available')
 

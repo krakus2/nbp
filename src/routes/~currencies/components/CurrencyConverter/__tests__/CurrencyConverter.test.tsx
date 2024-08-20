@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import {
   RouterProvider,
@@ -52,6 +52,22 @@ const renderWithProviders = (children: JSX.Element) => {
   )
 }
 
+const clickSubmit = async () => {
+  const submitButton = screen.getByText('Convert')
+  await waitFor(() => expect(submitButton).not.toBeDisabled())
+  await userEvent.click(submitButton)
+}
+
+const clickSwap = async () => {
+  const swapButton = screen.getByLabelText('swap currencies')
+  await userEvent.click(swapButton)
+}
+
+const typeAmountInput = async (amount: string) => {
+  const amountInput = screen.getByLabelText('Amount')
+  await userEvent.type(amountInput, amount)
+}
+
 describe('CurrencyConverter', () => {
   it('should convert currency correctly', async () => {
     emptyMockServer.use(mock)
@@ -59,14 +75,27 @@ describe('CurrencyConverter', () => {
 
     expect(await screen.findByText(/Currency converter/i)).toBeVisible()
 
-    const amountInput = screen.getByLabelText('Amount')
-    await userEvent.type(amountInput, '100')
-
-    const submitButton = screen.getByText('Convert')
-    await userEvent.click(submitButton)
+    await typeAmountInput('100')
+    await clickSubmit()
 
     await waitFor(() => {
       const convertedAmountText = screen.getByText('Converted amount: 25.0000')
+      expect(convertedAmountText).toBeVisible()
+    })
+  })
+
+  it('should convert currency correctly after swapping them', async () => {
+    emptyMockServer.use(mock)
+    renderWithProviders(<CurrencyConverter />)
+
+    expect(await screen.findByText(/Currency converter/i)).toBeVisible()
+
+    await typeAmountInput('100')
+    await clickSwap()
+    await clickSubmit()
+
+    await waitFor(() => {
+      const convertedAmountText = screen.getByText('Converted amount: 400.0000')
       expect(convertedAmountText).toBeVisible()
     })
   })
@@ -75,11 +104,22 @@ describe('CurrencyConverter', () => {
     emptyMockServer.use(mock)
     renderWithProviders(<CurrencyConverter />)
 
-    const submitButton = screen.getByText('Convert')
-    await userEvent.click(submitButton)
+    await clickSubmit()
 
     await waitFor(() => {
       expect(screen.getByText('Amount is required field')).toBeVisible()
+    })
+  })
+
+  it('displays validation error when amount is less than 0', async () => {
+    emptyMockServer.use(mock)
+    renderWithProviders(<CurrencyConverter />)
+
+    await typeAmountInput('-100')
+    await clickSubmit()
+
+    await waitFor(() => {
+      expect(screen.getByText("Amount can't be less than zero")).toBeVisible()
     })
   })
 })

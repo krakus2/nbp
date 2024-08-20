@@ -4,6 +4,7 @@ import { http, HttpResponse } from 'msw'
 
 import { nbpApi } from './api'
 import type { CurrencyDetailsDTO } from './dtos'
+import { joinApiPaths } from './utils'
 
 type CurrencyDetailsRequestParams = {
   code: string
@@ -30,4 +31,4 @@ export const useCurrencyDetails = (params: CurrencyDetailsRequestParams) =>
   })
 
 export const makeCurrencyDetailsGetMock = (data: CurrencyDetailsDTO) =>
-  http.get(url, () => HttpResponse.json(data))
+  http.get(joinApiPaths(url), () => HttpResponse.json(data))

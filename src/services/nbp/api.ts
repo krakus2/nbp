@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+export const BASE_NBP_API_URL = 'http://api.nbp.pl/api/'
+
 export const nbpApi = axios.create({
-  baseURL: 'http://api.nbp.pl/api/',
+  baseURL: BASE_NBP_API_URL,
 })
 
 nbpApi.interceptors.response.use(({ data }) => data)

@@ -4,6 +4,7 @@ import { http, HttpResponse } from 'msw'
 
 import { nbpApi } from './api'
 import { CurrencyDetailsDTO } from './dtos'
+import { joinApiPaths } from './utils'
 
 export const url = 'exchangerates/rates/a/:code' as const
 
@@ -14,9 +15,11 @@ export const useCurrentAverageCurrencyExchangeRate = (code: string) =>
   useQuery({
     queryKey: ['currencyDetails', code],
     queryFn: () => getCurrentAverageCurrencyExchangeRateRequest(code),
-    select: (data) => data.rates[0].mid,
+    select: (data) => {
+      return data.rates[0].mid
+    },
   })
 
 export const makeCurrentAverageCurrencyExchangeRateGetMock = (
   data: CurrencyDetailsDTO
-) => http.get(url, () => HttpResponse.json(data))
+) => http.get(joinApiPaths(url), () => HttpResponse.json(data))
