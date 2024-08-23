@@ -26,7 +26,7 @@ const getCurrencyDetailsRequest = ({
     })
   )
 
-export const useCurrencyDetails = (params: CurrencyDetailsRequestParams) =>
+export const useCurrencyDetailsQuery = (params: CurrencyDetailsRequestParams) =>
   useQuery({
     queryKey: ['currencyDetails', params],
     queryFn: () => getCurrencyDetailsRequest(params),

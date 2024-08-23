@@ -11,7 +11,7 @@ export const url = 'exchangerates/rates/a/:code' as const
 const getCurrentAverageCurrencyExchangeRateRequest = (code: string) =>
   nbpApi<unknown, CurrencyDetailsDTO>(compile<{ code: string }>(url)({ code }))
 
-export const useCurrentAverageCurrencyExchangeRate = (code: string) =>
+export const useCurrentAverageCurrencyExchangeRateQuery = (code: string) =>
   useQuery({
     queryKey: ['currencyDetails', code],
     queryFn: () => getCurrentAverageCurrencyExchangeRateRequest(code),

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { SubmitHandler, useForm as useReactHookForm } from 'react-hook-form'
 
-import { useCurrentAverageCurrencyExchangeRate } from '~/services/nbp'
+import { useCurrentAverageCurrencyExchangeRateQuery } from '~/services/nbp'
 
 import { useCurrencyCode } from '../../useCurrencyCode'
 
@@ -31,7 +31,7 @@ export const useForm = () => {
     formState: { errors },
   } = useReactHookForm<CurrencyCalculatorFormValues>()
   const { data: currentAverageCurrencyExchangeRate } =
-    useCurrentAverageCurrencyExchangeRate(code)
+    useCurrentAverageCurrencyExchangeRateQuery(code)
 
   const {
     // INFO: There were type inconsistencies, so instead of using controller I just omitted them as there are not needed

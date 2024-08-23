@@ -20,7 +20,7 @@ const url = 'exchangerates/tables/a' as const
 const getExchangeRatesTableARequest = () =>
   nbpApi<unknown, ExchangeRateTableDTO>(url)
 
-export const useExchangeRatesTableA = () =>
+export const useExchangeRatesTableAQuery = () =>
   useQuery({
     queryKey: ['exchangeRatesTableA'],
     queryFn: getExchangeRatesTableARequest,

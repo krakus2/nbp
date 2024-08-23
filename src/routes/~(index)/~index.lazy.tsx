@@ -2,7 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 
 import { Stack } from 'styled-system/jsx'
 
-import { useExchangeRatesTableA } from '~/services/nbp'
+import { useExchangeRatesTableAQuery } from '~/services/nbp'
 import { Heading } from '~/components/ui/heading'
 import { Spinner } from '~/components/ui/spinner'
 
@@ -13,7 +13,7 @@ export const Route = createLazyFileRoute('/(index)/')({
 })
 
 export function Index() {
-  const { data, isPending, isError } = useExchangeRatesTableA()
+  const { data, isPending, isError } = useExchangeRatesTableAQuery()
 
   if (isError)
     return (

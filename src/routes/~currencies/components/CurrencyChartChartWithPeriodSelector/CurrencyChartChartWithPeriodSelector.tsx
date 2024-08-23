@@ -4,7 +4,7 @@ import { Flex, Stack } from 'styled-system/jsx'
 
 import { Button } from '~/components/ui/button'
 import { Heading } from '~/components/ui/heading'
-import { useCurrencyDetails } from '~/services/nbp'
+import { useCurrencyDetailsQuery } from '~/services/nbp'
 
 import { useCurrencyCode } from '../../useCurrencyCode'
 
@@ -14,7 +14,7 @@ import { DEFAULT_PERIOD_VALUE, PERIODS } from './consts'
 export const CurrencyChartChartWithPeriodSelector = () => {
   const [period, setPeriod] = useState(DEFAULT_PERIOD_VALUE)
   const { code } = useCurrencyCode()
-  const { data, isPending } = useCurrencyDetails({
+  const { data, isPending } = useCurrencyDetailsQuery({
     code,
     period,
   })
